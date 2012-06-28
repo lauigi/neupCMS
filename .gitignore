@@ -1,0 +1,9 @@
+*.jpg
+*.png
+*.gif
+*~
+*.swp
+#*#
+neupCMS/neupCMS/apache/*
+neupCMS/neupCMS/apache
+*.pyc
