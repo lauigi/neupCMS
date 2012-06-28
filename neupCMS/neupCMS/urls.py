@@ -1,5 +1,7 @@
+﻿from django.conf import settings
 from django.conf.urls import patterns, include, url
-from neupCMS.views import hello
+from neupCMS.views import *
+from neupCMS.views_test import *
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -15,5 +17,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-	url('^hello/', hello),
+
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^hello/', hello),
+        url(r'^test/sql-test/', sql_test),
+        url(r'^test/display-meta/', display_meta),
+    )

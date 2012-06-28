@@ -1,0 +1,14 @@
+﻿{% extends "base.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block content %}
+    <div>
+        {% for name in names %}
+	        <p>{{name}}</p>
+	    {% empty %}
+	        <p>did not fetch anything</p>
+	    {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+﻿First of all, make sure that your local django, mysqld, apache and blabla works well
+Change the configuration in neupCMS_config.py.sample to localize the website
+and rename it as neupCMS_config.py
+Script for installation is coming soon
+
+email:gilbert_liu@qq.com
+
+developed for www.neupioneer.com

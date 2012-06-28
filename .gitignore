@@ -7,3 +7,4 @@
 neupCMS/neupCMS/apache/*
 neupCMS/neupCMS/apache
 *.pyc
+neupCMS/neupCMS_config.py

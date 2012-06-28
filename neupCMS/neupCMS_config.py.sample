@@ -1,0 +1,7 @@
+db_config={
+    'user':'root',
+	'db':'db_name',
+	'passwd':'db_password',
+	'host':'localhost',
+	'charset':'utf8'
+}
