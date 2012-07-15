@@ -2,10 +2,13 @@
 from django.conf.urls import patterns, include, url
 from neupCMS.views import *
 from neupCMS.views_test import *
+from django.contrib.auth.views import login, logout
+from neupCMS.member import login, profile
+from django.http import HttpResponseRedirect
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,13 +19,17 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^member/profile/(?P<username>\w+)/$', profile.profile_page),
+    url(r'^member/login/$', login.log_in),
+    url(r'^accounts/login/$', login.log_in),
+    url(r'^member/logout/$', login.log_out),
 
 )
 
 if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^hello/', hello),
-        url(r'^test/sql-test/', sql_test),
         url(r'^test/display-meta/', display_meta),
+        url(r'^account/loggedin/$', hello),
     )
