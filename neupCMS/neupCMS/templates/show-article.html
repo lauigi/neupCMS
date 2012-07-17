@@ -1,0 +1,15 @@
+﻿{% extends "base.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block content %}
+    {% if no_perm %}<div class="edit_error_prompt">您木有权限编辑此文章</div>{% endif %}
+    {% if edited %}<div class="edit_error_prompt">编辑成功</div>{% endif %}
+    <div id="article_type">{{type.typename}}</div>
+    <div id="article_title"><h1>{{article.title}}</h1></div>
+    <div id="article_status">
+        <span id="article_author">作者：{{article.authorname}}</span>
+        <span id="sendtime">发表时间：{{addon_article.senddate}}</span></div>
+    <div id="article_content">{{article.content}}</div>
+{% endblock %}

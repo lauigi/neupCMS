@@ -6,6 +6,15 @@
 {% block link %}{% endblock %}
 </head>
 <body>
+    {% block top_status %}
+        <div class="top_status">
+            {% if user.is_authenticated %}
+                <p>欢迎 {{ user.username }}，感谢登陆，<a href="/member/logout/?next={{path}}">登出</a></p>
+            {% else %}
+                <p>请<a href="/member/login/?next={{path}}">登录</a></p>
+            {% endif %}
+        </div>
+    {% endblock %}
     {% block content %}{% endblock %}
     {% block footer %}
     <div id="footer">
