@@ -7,11 +7,13 @@ from neupCMS.standard_test import custom_proc
 
 def log_in(request):
     if not request.user.is_authenticated():
-        next=False
+        next=''
         if request.GET.get('next'):
             next='?next='+request.GET.get('next')
         if request.method == 'POST':
             form = LoginForm(request.POST)
+            e=form.errors
+            #assert False
             if form.is_valid():
                 username = request.POST.get('username', '')
                 password = request.POST.get('password', '')
@@ -26,7 +28,11 @@ def log_in(request):
         return redirect(request,"/member/profile/%s/"%(request.user.username))
     
 def render_login(request,next,pwd_wrong=False):
-    form = LoginForm(initial={'username':request.POST.get('username','')})
+    #form = LoginForm(initial={'username':request.POST.get('username','')})
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+    else:
+        form = LoginForm()
     return render_to_response('log-in.html', {'form': form,
         'page_title': 'log in test',
         'pwd_wrong':pwd_wrong,
@@ -36,7 +42,7 @@ def log_out(request):
     auth.logout(request)
     return redirect(request,'/member/login/')
     
-def redirect(request,target_url):
+def redirect(request,target_url=''):
     if request.GET.get('next'):
         return HttpResponseRedirect(request.GET.get('next'))
     else:

@@ -4,4 +4,5 @@ db_config={
 	'passwd':'db_password',
 	'host':'localhost',
 	'charset':'utf8'
+    'secret_key':'text your own string here'
 }

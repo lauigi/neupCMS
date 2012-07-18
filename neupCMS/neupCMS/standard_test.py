@@ -6,4 +6,5 @@ def custom_proc(request):
         'page_title': 'test',
         'ip_address': request.META['REMOTE_ADDR'],
         'path': request.path,
+        'bool_field':[True,False,None]
     }

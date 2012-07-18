@@ -4,12 +4,21 @@
 {% endblock %}
 
 {% block content %}
-    {% if no_perm %}<div class="edit_error_prompt">您木有权限编辑此文章</div>{% endif %}
+    {% if no_perm %}<div class="edit_error_prompt">您木有权限处置此文章</div>{% endif %}
     {% if edited %}<div class="edit_error_prompt">编辑成功</div>{% endif %}
+    {% if article.is_deleted %}
+        <div class="edit_error_prompt">本文章已被删除，<a href="/article/{{article.aid}}/resume/">点击恢复</a></div>
+    {% endif %}
+    {% if verify %}
+        <form action="/article/{{article.aid}}/edit/" method="post">{% csrf_token %}
+            {{verify_form.as_p}}
+            <input type="submit" value="提交">
+        </form>
+    {% endif %}
     <div id="article_type">{{type.typename}}</div>
     <div id="article_title"><h1>{{article.title}}</h1></div>
     <div id="article_status">
         <span id="article_author">作者：{{article.authorname}}</span>
-        <span id="sendtime">发表时间：{{addon_article.senddate}}</span></div>
-    <div id="article_content">{{article.content}}</div>
+        <span id="sendtime">发表时间：{{article.senddate|date:"Y年m月d日 H:i:s"}}</span></div>
+    <div id="article_content">{{addon_article.content}}</div>
 {% endblock %}

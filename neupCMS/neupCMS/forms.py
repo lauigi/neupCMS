@@ -14,3 +14,6 @@ class EditForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(EditForm, self).__init__(*args, **kwargs)
         self.fields['typeid'].choices = [(item.typeid,item.typename) for item in Type.objects.all()]
+        
+class VerifyForm(forms.Form):
+    is_verified = forms.TypedChoiceField(label=u'审核',choices=[(None,u'未审核'),(True,u'审核通过'),(False,u'未通过审核')])

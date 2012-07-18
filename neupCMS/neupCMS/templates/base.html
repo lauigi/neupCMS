@@ -3,13 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{% block title %}{% endblock %}</title>
+<link href="/static/main.css" rel="stylesheet" type="text/css" />
 {% block link %}{% endblock %}
 </head>
 <body>
     {% block top_status %}
         <div class="top_status">
             {% if user.is_authenticated %}
-                <p>欢迎 {{ user.username }}，感谢登陆，<a href="/member/logout/?next={{path}}">登出</a></p>
+                <p>欢迎 <a href="/member/profile/{{user.username}}/">{{ user.username }}</a>，感谢登陆，<a href="/member/logout/?next={{path}}">登出</a></p>
             {% else %}
                 <p>请<a href="/member/login/?next={{path}}">登录</a></p>
             {% endif %}

@@ -4,10 +4,17 @@ from django.db import models
 # Create your models here.
 class Article(models.Model):
     aid = models.AutoField(primary_key=True)
+    is_deleted = models.BooleanField(default=False)
     is_verified = models.NullBooleanField()
     authorname = models.CharField(max_length=30)
     title = models.CharField(max_length=30)
-    content = models.TextField()
+    hits = models.IntegerField(default=0)
+    goodpost = models.IntegerField(default=0)#顶
+    baddpost = models.IntegerField(default=0)#踩
+    is_headline = models.BooleanField(default=False)
+    typeid = models.IntegerField()
+    senddate = models.DateTimeField(auto_now_add=True)
+    last_modified_time = models.DateTimeField(auto_now=True)
     
     def __unicode__(self):
         return u'%s\n%s'%(self.title,self.aid)
@@ -21,14 +28,8 @@ class Type(models.Model):
         
 class AddonArticle(models.Model):
     aid = models.ForeignKey(Article,primary_key=True)
-    typeid = models.IntegerField()
-    senddate = models.DateTimeField(auto_now_add=True)
-    last_modified_time = models.DateTimeField(auto_now=True)
+    content = models.TextField()
     authorip = models.GenericIPAddressField()
-    hits = models.IntegerField(default=0)
-    goodpost = models.IntegerField(default=0)#顶
-    baddpost = models.IntegerField(default=0)#踩
-    is_headline = models.BooleanField(default=False)
     
     def __unicode__(self):
         return u'%s\n%s'%(self.aid,self.authorip)

@@ -1,0 +1,14 @@
+﻿{% extends "base.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block content %}
+    <div id="article_list_by_type">
+        <h1>{{type.typename}}</h1>
+    </div>
+    <div class="article_list">
+        <h2>文章列表</h2>
+        {% include "include/article-list.html" %}
+    </div>
+{% endblock %}
