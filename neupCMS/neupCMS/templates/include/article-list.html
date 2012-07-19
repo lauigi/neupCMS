@@ -1,5 +1,7 @@
-﻿<ul>{% for dict in article_list %}
-    {% if not dict.is_deleted or resume_auth %}{% if dict.is_verified or verify_auth %}<li>
+﻿{% if not is_index %}<ul>{% endif %}
+{% for dict in article_list %}
+    {% if is_index and forloop.first%}<a href="/type/{{forloop.parentloop.counter}}/"><h2>{{dict.typename}}</h2></a><ul>{% endif %}
+    {% if not dict.is_deleted or resume_auth %}{% if dict.is_verified or verify_auth or dict.authorname = user.username %}<li>
         {% if manage_auth %}
             <span>{{dict.aid}}</span>|
             <span>{{dict.is_verified|yesno:"审核通过,审核未通过,未审核"}}</span>|

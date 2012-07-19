@@ -1,0 +1,16 @@
+﻿{% extends "base.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block content %}
+    <div id="index_title">
+        <h1>首页</h1>
+    </div>
+    {% for article_list in type_list %}
+    <div id="type_{{forloop.counter}}">
+        {% include "include/article-list.html" %}
+    </div>
+    {% if not forloop.last %}<hr />{% endif %}
+    {% endfor %}
+{% endblock %}

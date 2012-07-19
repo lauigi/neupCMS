@@ -2,6 +2,12 @@
 {% block title %}
     {{page_title}}
 {% endblock %}
+{% comment %}{% endcomment %}
+{% block link %}
+<script type="text/javascript" charset="utf-8" src="/media/editor/ueditor/editor_config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/media/editor/ueditor/editor_all.js"></script>
+<link rel="stylesheet" type="text/css" href="/media/editor/ueditor/themes/default/ueditor.css"/>
+{% endblock %}
 
 {% block content %}
     <h1>编辑文章</h1>
@@ -12,9 +18,9 @@
     {% if aid %}<form action="/article/{{aid}}/edit/" method="post">
     {% else %}<form action="/article/new/" method="post">
     {% endif %}{% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
+        <ul>
+            {{ form.as_ul }}
+        </ul>
         <input type="submit" value="提交文章">
     </form>
 {% endblock %}

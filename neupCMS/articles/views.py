@@ -39,7 +39,6 @@ def show_article(request,articleid,edited=False,no_perm=False,verify=False,verif
 def list_by_type(request,typeid):
     t = get_object_or_404(Type, typeid=typeid)
     article_list=[{'aid':item.aid,'is_deleted':item.is_deleted,'is_verified':item.is_verified,'title':item.title,'authorname':item.authorname,'senddate':item.senddate} for item in Article.objects.filter(typeid=t.typeid)]
-    #assert False
     return render_to_response('article-list-by-type.html', {'article_list':article_list,
         'type':{'typeid':t.typeid,'typename':t.typename},
         'page_title':t.typename},context_instance=RequestContext(request,processors=[custom_proc]))
@@ -53,12 +52,11 @@ def edit_article(request,articleid=0):
             a = get_object_or_404(Article, aid=articleid)
             a.is_verified=is_verified
             a.save()
-            t=a.is_verified
-            #assert False
             return show_article(request,articleid,edited=True)
         else:
             form = EditForm(request.POST)
             if form.is_valid():
+                #assert False
                 return update_article(request,articleid)
     else:
         if articleid==0:
@@ -102,6 +100,7 @@ def update_article(request,articleid=0):
     typeid = request.POST.get('typeid', '')
     title = request.POST.get('title', '')
     u_text = request.POST.get('u_text', '')
+    #assert False
     if articleid==0:
         a = Article(title=title,
             typeid=typeid,
@@ -118,7 +117,10 @@ def update_article(request,articleid=0):
             a.typeid = typeid
             a_addon = AddonArticle.objects.get(aid_id=articleid)
             a_addon.content = u_text
+            c=a_addon.content
             a.save()
+            a_addon.save()
+            #assert False
         else:
             return show_article(request,articleid,no_perm=True)
     return show_article(request,a.aid,edited=True)

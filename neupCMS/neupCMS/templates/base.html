@@ -10,7 +10,7 @@
     {% block top_status %}
         <div class="top_status">
             {% if user.is_authenticated %}
-                <p>欢迎 <a href="/member/profile/{{user.username}}/">{{ user.username }}</a>，感谢登陆，<a href="/member/logout/?next={{path}}">登出</a></p>
+                <p>欢迎 <a href="/member/profile/{{user.username}}/">{{ user.username }}</a>，感谢登录，<a href="/member/logout/?next={{path}}">登出</a></p>
             {% else %}
                 <p>请<a href="/member/login/?next={{path}}">登录</a></p>
             {% endif %}
@@ -20,7 +20,7 @@
     {% block footer %}
     <div id="footer">
         <hr />
-        <p class="copyleft">www.neupioneer.com  &copy; 2012  由frellica使用django研制>w<</p>
+        <p class="copyleft">www.neupioneer.com  &copy; 2012  frellica>w<</p>
     </div>
     {% endblock %}
 </body>
