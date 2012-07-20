@@ -69,8 +69,10 @@
 
 
         //word转存配置区
-        ,wordImageUrl:URL + "php/imageUp.php"             //word转存提交地址
-        ,wordImagePath:URL + "php/"                       //
+        //,wordImageUrl:URL + "php/imageUp.php"             //word转存提交地址
+        ,wordImageUrl:"/upload/images/"            //word转存提交地址
+        //,wordImagePath:URL + "php/"                       //
+        ,wordImagePath:"/media/"                      //
         //,wordImageFieldName:"upfile"                     //word转存表单名若此处修改，需要在后台对应文件修改对应参数
 
 
@@ -88,8 +90,8 @@
                 'directionalityltr', 'directionalityrtl', '|', '', 'indent', '|',
                 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
                 'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright',
-                'imagecenter', '|', 'insertimage', 'emotion', 'insertvideo', 'attachment', 'map', 'gmap', 'insertframe','highlightcode','webapp','pagebreak', '|',
-                'horizontal', 'date', 'time', 'spechars','snapscreen', 'wordimage', '|',
+                'imagecenter', '|', 'insertimage', 'emotion', 'insertvideo', /*'attachment', */'map', 'gmap', 'insertframe','highlightcode','webapp','pagebreak', '|',
+                'horizontal', 'date', 'time', 'spechars',/*'snapscreen',*/ 'wordimage', '|',
                 'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
                 'print', 'preview', 'searchreplace','help']
         ]
@@ -115,14 +117,14 @@
 
         //webAppKey
         //百度应用的APIkey，每个站长必须首先去百度官网注册一个key后方能正常使用app功能
-        ,webAppKey:""
+        ,webAppKey:"SwzUlOnvvVymZNg7GZpTxtWG"
 
 
         //常用配置项目
         //,isShow : true    //默认显示编辑器
 
 
-        //,initialContent:'欢迎使用ueditor!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        ,initialContent:''    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
 
         //,autoClearinitialContent:false //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了

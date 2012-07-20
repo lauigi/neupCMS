@@ -1,5 +1,6 @@
 ﻿#-*- coding:utf-8 -*-
 from django.db import models
+from upload.models import FileUpload
 
 # Create your models here.
 class Article(models.Model):
@@ -30,6 +31,7 @@ class AddonArticle(models.Model):
     aid = models.ForeignKey(Article,primary_key=True)
     content = models.TextField()
     authorip = models.GenericIPAddressField()
+    attachments = models.ManyToManyField(FileUpload)
     
     def __unicode__(self):
         return u'%s\n%s'%(self.aid,self.authorip)

@@ -24,5 +24,9 @@
         {% endif %}{% endif %}
     </li>{% endif %}{% endif %}
 {% empty %}
-<li>您尚未发表过文章</li>
+    {% if manage_auth %}
+        <li>您尚未发表过文章</li>
+    {% else %}
+        <li>本类别下没有新闻</li>
+    {% endif %}
 {% endfor %}</ul>

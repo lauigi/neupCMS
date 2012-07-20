@@ -2,7 +2,7 @@
 from django.shortcuts import render_to_response,RequestContext,get_object_or_404
 from django.http import HttpResponseRedirect,Http404
 from django.contrib.auth.decorators import login_required,user_passes_test
-from neupCMS.forms import EditForm,VerifyForm
+from neupCMS.forms import EditForm,VerifyForm,UploadForm
 from articles.models import Type,Article,AddonArticle
 from neupCMS.standard_test import custom_proc
 from neupCMS.member.group_auth import in_editor_group,in_admin_group
@@ -35,6 +35,12 @@ def show_article(request,articleid,edited=False,no_perm=False,verify=False,verif
             raise Http404()
     else:
         raise Http404()
+        
+#def show_attachment(articleid):
+#    a_addon = get_object_or_404(AddonArticle, aid_id=articleid)
+#    attachments_list=[]
+#    attachments_list=[{'original_file_name':a_addon.original_file_name,'file_path':a_addon.file_path,'file_size':a_addon.file_size} for item in a_addon.attachments.filter(is_deleted=False)]
+#    return attachments_list
         
 def list_by_type(request,typeid):
     t = get_object_or_404(Type, typeid=typeid)
@@ -69,8 +75,10 @@ def edit_article(request,articleid=0):
                     'typeid':a.typeid,
                     'u_text':a_addon.content})
             else:
-                return show_article(request,articleid,no_perm=True)    
+                return show_article(request,articleid,no_perm=True)
+        #upload_form = UploadForm()
     return render_to_response('edit-article.html', {'form': form,
+        #'upload_form':upload_form,
         'page_title': 'add article test',
         'result_aid':result_aid,
         'aid':articleid},context_instance=RequestContext(request,processors=[custom_proc]))

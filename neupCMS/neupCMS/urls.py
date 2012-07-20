@@ -32,10 +32,13 @@ urlpatterns = patterns('',
     url(r'^article/(?P<articleid>\d+)/verify/$', show_article,{'verify':True}),
     url(r'^article/(?P<articleid>\d+)/resume/$', resume_article),
     url(r'^article/(?P<articleid>\d+)/delete/$', delete_article),
+    url(r'^article/(?P<articleid>\d+)/upload/$', upload_file),
     url(r'^article/new/$', edit_article),
+    url(r'^article/new/upload/$', upload_file),
     url(r'^column/(?P<typeid>\d+)/$', login.log_out),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
     url(r'^upload/images/$', upload_image),
+    url(r'^upload/files/$', upload_file),
 
 )
 

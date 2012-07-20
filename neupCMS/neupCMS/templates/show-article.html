@@ -2,7 +2,10 @@
 {% block title %}
     {{page_title}}
 {% endblock %}
-
+{% block link %}
+<script type="text/javascript" charset="utf-8" src="/media/editor/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+<link rel="stylesheet" type="text/css" href="/media/editor/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
+{% endblock %}
 {% block content %}
     {% if no_perm %}<div class="edit_error_prompt">您木有权限处置此文章</div>{% endif %}
     {% if edited %}<div class="edit_error_prompt">编辑成功</div>{% endif %}

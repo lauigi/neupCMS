@@ -23,4 +23,15 @@
         </ul>
         <input type="submit" value="提交文章">
     </form>
+    {% if upload_auth %}<form {% if aid %}action="/article/{{aid}}/upload/"{% else %}action="/article/new/upload/"{% endif %} enctype="multipart/form-data" method="post">{% csrf_token %}
+        <ul>
+            {{ upload_form.as_ul }}
+        </ul>
+    <input type="submit" value="上传附件">
+    </form>{% endif %}
+    {% if attachments_list and upload_auth %}<div>附件列表</div>
+        <ul>{% for dict in attachments_list %}
+            <li><a href="{{dict.file_path}}">dict.original_file_name</a>({dict.file_size}) Bytes</li>
+        {% endfor %}</ul>
+    {% endif %}
 {% endblock %}
