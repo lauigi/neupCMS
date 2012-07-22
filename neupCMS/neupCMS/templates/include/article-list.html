@@ -7,7 +7,7 @@
             <span>{{dict.is_verified|yesno:"审核通过,审核未通过,未审核"}}</span>|
             <span>{{dict.typename}}</span>|
         {% endif %}
-        <span class="article_title"><a href="/article/{{dict.aid}}/">{% if is_headline %}<b>{{dict.title}}</b>{% else %}{{dict.title}}{% endif %}</a></span>
+        <span class="article_title"><a href="/article/{{dict.aid}}/">{% if dict.is_headline %}<b>{{dict.title}}</b>{% else %}{{dict.title}}{% endif %}</a></span>
         {% if manage_auth %}
             <span class="authorname">作者：<a href="/member/profile/{{dict.authorname}}/">{{dict.authorname}}</a></span>
         {% endif %}

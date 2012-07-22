@@ -32,16 +32,18 @@ class VerifyForm(forms.Form):
     slideshow_img = forms.ChoiceField(label=u'请选择一个图片作为封面',choices=())
     
     def __init__(self, *args, **kwargs):
-        #aid=kwargs['initial']['aid']
         super(VerifyForm, self).__init__(*args, **kwargs)
         img_list=img_from_content(kwargs['initial']['aid'])
-        #assert False
         self.fields['slideshow_img'].choices = [('0','--------')]+[(item,i+1) for i,item in enumerate(img_list)]
     
     def clean_slideshow_img(self):
         slideshow_img = self.cleaned_data['slideshow_img']
-        if slideshow_img == '0':
-            raise forms.ValidationError("请选择分类")
+        try:
+            is_slideshow=self.is_slideshow
+        except:
+            is_slideshow=False
+        if slideshow_img == '0' and is_slideshow:
+            raise forms.ValidationError("请选择图片")
         return slideshow_img
     
 class UploadForm(forms.Form):

@@ -42,7 +42,7 @@ def verify_article(request,articleid,status={}):
                 a.is_verified=is_verified
                 a.is_headline=is_headline
                 a.is_slideshow=is_slideshow
-                if is_slideshow:
+                if is_slideshow and slideshow_img is not '0':
                     a.slideshow_img=ImageUpload.objects.get(thumb_path=slideshow_img)
                 a.save()
                 status={'be_verified':True}
@@ -61,7 +61,7 @@ def verify_article(request,articleid,status={}):
                 'is_slideshow':a.is_slideshow,
                 'aid':a.aid,
                 'slideshow_img':thumb_path})
-            status['to_verify']=True
+            status={'to_verify':True}
         return show_article(request,articleid,status,verify_form)
 
         
@@ -139,7 +139,7 @@ def update_article(request,articleid=0):
             authorip=request.META['REMOTE_ADDR'])
         a_addon.save()
         sort_img(a.aid)
-        return render_to_response('edit-article.html', {'form': form,
+        return render_to_response('edit-article.html', {'form': EditForm(),
             'page_title': u'添加新文章',
             'result_aid':a.aid,
             'aid':articleid},context_instance=RequestContext(request,processors=[custom_proc]))#articleid是0时，表示添加新文章

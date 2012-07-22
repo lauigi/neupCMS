@@ -1,7 +1,12 @@
 ﻿First of all, make sure that your local django, mysqld, apache and blabla works well
 Change the configuration in neupCMS_config.py.sample to localize the website
 and rename it as neupCMS_config.py
-Script for installation is coming soon
+Put the UEeditor directory in neupCMS/media/editor/ueditor
+Then run 'python neupCMS/manage.py syncdb'
+Now,It should be running 囧
+
+The 'www.neupioneer.com' branch is developed for the need of our website
+new useful feature of the branch will be merged to the master
 
 email:gilbert_liu@qq.com
 
