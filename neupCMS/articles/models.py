@@ -1,6 +1,6 @@
 ﻿#-*- coding:utf-8 -*-
 from django.db import models
-from upload.models import FileUpload
+from upload.models import FileUpload,ImageUpload
 
 # Create your models here.
 class Article(models.Model):
@@ -12,10 +12,12 @@ class Article(models.Model):
     hits = models.IntegerField(default=0)
     goodpost = models.IntegerField(default=0)#顶
     baddpost = models.IntegerField(default=0)#踩
-    is_headline = models.BooleanField(default=False)
+    is_headline = models.NullBooleanField(default=False)
+    is_slideshow = models.NullBooleanField(default=False)
     typeid = models.IntegerField()
     senddate = models.DateTimeField(auto_now_add=True)
     last_modified_time = models.DateTimeField(auto_now=True)
+    slideshow_img = models.ForeignKey(ImageUpload,null=True)
     
     def __unicode__(self):
         return u'%s\n%s'%(self.title,self.aid)
@@ -28,7 +30,7 @@ class Type(models.Model):
         return u'%s\n%s'%(self.typeid,self.typename)
         
 class AddonArticle(models.Model):
-    aid = models.ForeignKey(Article,primary_key=True)
+    aid = models.AutoField(primary_key=True)
     content = models.TextField()
     authorip = models.GenericIPAddressField()
     attachments = models.ManyToManyField(FileUpload)

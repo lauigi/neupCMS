@@ -1,0 +1,11 @@
+﻿<div id="menu_block">
+    {% for m_root in menu_list %}
+        <ul>
+            {% for menu in m_root %}
+                {% if forloop.first %}<nav class="menu_root">{% else %}<li class="menu_sub">{% endif %}
+                <a href="{{menu.menu_link}}">{{menu.menu_name}}</a>
+                </nav>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>

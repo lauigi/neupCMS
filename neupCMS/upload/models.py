@@ -1,10 +1,11 @@
-﻿from django.db import models
-from neupCMS import settings
-from time import strftime,ctime,time
-# Create your models here.
+﻿from os import path
+from django.db import models
+
+
 class ImageUpload(models.Model):
     image_path = models.ImageField(upload_to='images/%Y/%m/%d')
-    original_image_name = models.CharField(max_length=30)
+    thumb_path = models.ImageField(upload_to='thumb/images/%Y/%m/%d',blank=True)
+    original_image_name = models.CharField(max_length=40)
     aid = models.IntegerField(default=0)
     file_size = models.IntegerField(default=0)
     
@@ -20,5 +21,4 @@ class FileUpload(models.Model):
     senddate = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
-        return u'%s'%(self.original_file_name)
-        
+        return u'%s'%(self.original_file_name)   

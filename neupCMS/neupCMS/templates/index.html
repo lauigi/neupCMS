@@ -4,8 +4,25 @@
 {% endblock %}
 
 {% block content %}
-    <div id="index_title">
+    <div id="banner">
         <h1>首页</h1>
+    </div>
+    {% include "include/menu-list.html" %}
+    <div id="slideshow">    
+        <div id="slideshow_bg"></div>  <!--标题背景-->
+        <div id="slideshow_info"></div> <!--标题-->
+        <ul>
+            <li class="slideshow_on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <div id="slideshow_list">
+            {% for item in slideshow_list %}
+            <a href="/article/{{item.aid}}/" target="_blank"><img src="{{MEDIA_URL}}{{item.thumb_path}}" title="{{item.title}}" alt="{{item.title}}" /></a>
+            {% endfor %}
+        </div>
     </div>
     {% for article_list in type_list %}
     <div id="type_{{forloop.counter}}">

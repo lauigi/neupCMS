@@ -1,0 +1,13 @@
+﻿{% extends "base.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block content %}
+<form action="/test/i/" enctype="multipart/form-data" method="post">{% csrf_token %}
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+    <input type="submit" value="上传附件">
+    </form>
+{% endblock %}

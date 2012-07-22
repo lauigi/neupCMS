@@ -3,17 +3,18 @@
     {{page_title}}
 {% endblock %}
 {% block link %}
-<script type="text/javascript" charset="utf-8" src="/media/editor/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
-<link rel="stylesheet" type="text/css" href="/media/editor/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
 {% endblock %}
 {% block content %}
-    {% if no_perm %}<div class="edit_error_prompt">您木有权限处置此文章</div>{% endif %}
-    {% if edited %}<div class="edit_error_prompt">编辑成功</div>{% endif %}
+    {% include "include/menu-list.html" %}
+    {% if status.no_perm %}<div class="edit_error_prompt">您木有权限处置此文章</div>{% endif %}
+    {% if status.has_edited %}<div class="edit_error_prompt">编辑成功</div>{% endif %}
+    {% if status.verify_failed %}<div class="edit_error_prompt">审核失败，选项有误，请更正后提交</div>{% endif %}
+    {% if status.be_verified %}<div class="edit_error_prompt">审核成功</div>{% endif %}
     {% if article.is_deleted %}
         <div class="edit_error_prompt">本文章已被删除，<a href="/article/{{article.aid}}/resume/">点击恢复</a></div>
     {% endif %}
-    {% if verify %}
-        <form action="/article/{{article.aid}}/edit/" method="post">{% csrf_token %}
+    {% if status.to_verify %}
+        <form action="/article/{{article.aid}}/verify/" method="post">{% csrf_token %}
             {{verify_form.as_p}}
             <input type="submit" value="提交">
         </form>

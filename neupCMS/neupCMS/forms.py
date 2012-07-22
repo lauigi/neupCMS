@@ -1,7 +1,8 @@
 ﻿#-*- coding:utf-8 -*-
 from django import forms
 from widgets import UEditor
-from articles.models import Type,Article,AddonArticle
+from articles.models import Type,AddonArticle,Article
+from neupCMS.util import img_from_content
 
 class LoginForm(forms.Form):
     username = forms.CharField(label=u'用户名',error_messages={'required': u'用户名不能为空'})
@@ -26,6 +27,22 @@ class EditForm(forms.Form):
         
 class VerifyForm(forms.Form):
     is_verified = forms.TypedChoiceField(label=u'审核',choices=[(None,u'未审核'),(True,u'审核通过'),(False,u'未通过审核')])
+    is_headline = forms.BooleanField(label=u'是否作为重点新闻',required=False)
+    is_slideshow = forms.BooleanField(label=u'是否推送到首页图片',required=False)
+    slideshow_img = forms.ChoiceField(label=u'请选择一个图片作为封面',choices=())
+    
+    def __init__(self, *args, **kwargs):
+        #aid=kwargs['initial']['aid']
+        super(VerifyForm, self).__init__(*args, **kwargs)
+        img_list=img_from_content(kwargs['initial']['aid'])
+        #assert False
+        self.fields['slideshow_img'].choices = [('0','--------')]+[(item,i+1) for i,item in enumerate(img_list)]
+    
+    def clean_slideshow_img(self):
+        slideshow_img = self.cleaned_data['slideshow_img']
+        if slideshow_img == '0':
+            raise forms.ValidationError("请选择分类")
+        return slideshow_img
     
 class UploadForm(forms.Form):
-    upload_file = forms.FileField(label=u'上传文件')
+    upfile = forms.ImageField(label=u'上传文件')
