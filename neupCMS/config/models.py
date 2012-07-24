@@ -8,4 +8,4 @@ class Menu(models.Model):
     menu_link = models.CharField(max_length=60,null=True,blank=True)
     
     def __unicode__(self):
-        return u'%s->%s %s'%(self.parant_id,self.menuid,self.menu_name)
+        return u'%s<-%s %s'%(self.parent_id,self.menuid,self.menu_name)

@@ -8,7 +8,6 @@ from upload.models import ImageUpload
 from neupCMS.standard_test import custom_proc
 from neupCMS.member.group_auth import in_editor_group,in_admin_group
 from neupCMS.member.login import redirect
-from config.views import show_menu
 from neupCMS.util import sort_img
 
 def show_article(request,articleid,status={},verify_form=None):
@@ -17,7 +16,6 @@ def show_article(request,articleid,status={},verify_form=None):
         if not a.is_deleted or in_admin_group(request.user):
             a_addon = AddonArticle.objects.get(aid=articleid)
             type = Type.objects.get(typeid=a.typeid)
-            menu_list=show_menu()
             return render_to_response('show-article.html', {'article':a,
                 'addon_article':a_addon,
                 'type':type,
@@ -73,11 +71,9 @@ def verify_article(request,articleid,status={}):
         
 def list_by_type(request,typeid):
     t = get_object_or_404(Type, typeid=typeid)
-    menu_list=show_menu()
     article_list=[{'aid':item.aid,'is_deleted':item.is_deleted,'is_verified':item.is_verified,'title':item.title,'authorname':item.authorname,'senddate':item.senddate,'is_headline':item.is_headline} for item in Article.objects.filter(typeid=t.typeid)]
     return render_to_response('article-list-by-type.html', {'article_list':article_list,
         'type':{'typeid':t.typeid,'typename':t.typename},
-        'menu_list':menu_list,
         'page_title':t.typename},context_instance=RequestContext(request,processors=[custom_proc]))
     
 @login_required

@@ -1,0 +1,10 @@
+﻿<div id="vote">
+    <div class="title">{{vote.v.vtitle}}</div>
+    <div class="descr">{{vote.v.vdescr}}</div>
+    <form action="#" method="get">
+        {% for vc in vote.vcolumn %}
+        <p>{{forloop.counter}}.{{vc.vctitle}}
+        {% endfor %}
+        <input type="submit" value="投票">>
+    </form>
+</div>

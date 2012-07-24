@@ -134,6 +134,8 @@ INSTALLED_APPS = (
     'articles',
     'upload',
     'config',
+    'vote',
+    'ad',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -38,3 +38,9 @@ class AddonArticle(models.Model):
     def __unicode__(self):
         return u'%s\n%s'%(self.aid,self.authorip)
         
+class PostList(models.Model):
+    aid = models.IntegerField()
+    poster_ip = models.GenericIPAddressField()
+    
+    def __unicode__(self):
+        return u'%s\n%s'%(self.aid,self.poster_ip)

@@ -21,7 +21,7 @@
         <ul>
             {{ form.as_ul }}
         </ul>
-        <input type="submit" value="提交文章">
+        <input class="btn btn-primary btn-large" type="submit" value="提交文章">
     </form>
     {% if upload_auth %}<form {% if aid %}action="/article/{{aid}}/upload/"{% else %}action="/article/new/upload/"{% endif %} enctype="multipart/form-data" method="post">{% csrf_token %}
         <ul>

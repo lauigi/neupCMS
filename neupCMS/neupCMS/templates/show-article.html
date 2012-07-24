@@ -5,7 +5,6 @@
 {% block link %}
 {% endblock %}
 {% block content %}
-    {% include "include/menu-list.html" %}
     {% if status.no_perm %}<div class="edit_error_prompt">您木有权限处置此文章</div>{% endif %}
     {% if status.has_edited %}<div class="edit_error_prompt">编辑成功</div>{% endif %}
     {% if status.verify_failed %}<div class="edit_error_prompt">审核失败，选项有误，请更正后提交</div>{% endif %}
