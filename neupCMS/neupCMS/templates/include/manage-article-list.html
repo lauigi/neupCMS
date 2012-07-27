@@ -1,0 +1,28 @@
+<table class="table table-striped table-bordered"><tbody>
+<thead><tr><th>文章id</th><th>审核状态</th><th>文章分类</th><th>文章标题</th><th>作者</th><th>操作</th></tr></thead>
+{% for dict in article_list %}<tr>
+    {% if not dict.is_deleted or resume_auth %}{% if dict.is_verified or verify_auth or dict.authorname = user.username %}
+        <td><span class="badge">{{dict.aid}}</span></td>
+        <td><span class="badge badge-info">{{dict.is_verified|yesno:"审核通过,审核未通过,未审核"}}</span></td>
+        <td><span class="badge badge-inverse">{{dict.typename}}</span></td>
+        <td><span class="article_title"><a href="/article/{{dict.aid}}/">{% if dict.is_headline %}<b>{{dict.title}}</b>{% else %}{{dict.title}}{% endif %}</a></span></td>
+        <td><span class="authorname"><a href="/member/profile/{{dict.authorname}}/">{{dict.authorname}}</a></span></td>
+        <td>{% if dict.authorname = user.username or verify_auth %}
+            <a href="/article/{{dict.aid}}/edit/"><span class="label label-important">修改本文</span></a>|
+            {% if not dict.is_deleted %}
+                <a href="/article/{{dict.aid}}/delete/"><span class="label label-warning">删除本文</span></a>
+            {% endif %}
+            {% if dict.is_deleted and resume_auth %}
+                <a href="/article/{{dict.aid}}/resume/"><span class="label label-success">恢复本文</span></a>
+            {% endif %}
+        {% endif %}
+        {% if verify_auth %}|
+            <a href="/article/{{dict.aid}}/verify/"><span class="label label-info">审核本文</span></a>
+        {% endif %}</td>
+    {% endif %}{% endif %}
+</tr>
+{% empty %}
+    <tr><td>您尚未发表过文章</td></tr>
+{% endfor %}
+</tbody></table>
+{% include "include/pagination.html" %}

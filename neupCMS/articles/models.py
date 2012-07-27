@@ -1,4 +1,4 @@
-﻿#-*- coding:utf-8 -*-
+#-*- coding:utf-8 -*-
 from django.db import models
 from upload.models import FileUpload,ImageUpload
 

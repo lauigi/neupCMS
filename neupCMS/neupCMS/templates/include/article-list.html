@@ -1,32 +1,8 @@
-﻿{% if not is_index %}<ul>{% endif %}
+<ul class="nav nav-pills nav-stacked">
 {% for dict in article_list %}
-    {% if is_index and forloop.first%}<a href="/type/{{forloop.parentloop.counter}}/"><h2>{{dict.typename}}</h2></a><ul>{% endif %}
-    {% if not dict.is_deleted or resume_auth %}{% if dict.is_verified or verify_auth or dict.authorname = user.username %}<li>
-        {% if not manage_auth %}
-            <span class="senddate">{{dict.senddate|date:"m-d"}}</span>
-        {% endif %}
-        {% if manage_auth %}
-            <span>{{dict.aid}}</span>|
-            <span>{{dict.is_verified|yesno:"审核通过,审核未通过,未审核"}}</span>|
-            <span>{{dict.typename}}</span>|
-        {% endif %}
-        <span class="article_title"><a href="/article/{{dict.aid}}/">{% if dict.is_headline %}<b>{{dict.title}}</b>{% else %}{{dict.title}}{% endif %}</a></span>
-        {% if manage_auth %}
-            <span class="authorname">作者：<a href="/member/profile/{{dict.authorname}}/">{{dict.authorname}}</a></span>
-        {% endif %}
-        {% if manage_auth %}{% if dict.authorname = user.username or verify_auth %}|
-            <span><a href="/article/{{dict.aid}}/edit/">修改本文</a></span>|
-            {% if not dict.is_deleted %}<span><a href="/article/{{dict.aid}}/delete/">删除本文</a></span>{% endif %}
-            {% if dict.is_deleted and resume_auth %}<span><a href="/article/{{dict.aid}}/resume/">恢复本文</a></span>{% endif %}
-        {% endif %}
-        {% if verify_auth %}|
-            <span><a href="/article/{{dict.aid}}/verify/">审核本文</a></span>
-        {% endif %}{% endif %}
-    </li>{% endif %}{% endif %}
+    <li><a href="/article/{{dict.aid}}/">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title}}</b>{% else %}{{dict.title}}{% endif %}</a></li>
 {% empty %}
-    {% if manage_auth %}
-        <li>您尚未发表过文章</li>
-    {% else %}
-        <li>本类别下没有新闻</li>
-    {% endif %}
-{% endfor %}</ul>
+    <li>本类别下没有新闻</li>
+{% endfor %}
+</ul>
+{% include "include/pagination.html" %}

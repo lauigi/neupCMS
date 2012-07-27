@@ -1,4 +1,4 @@
-﻿from config.models import Menu
+from config.models import Menu
 
 def show_menu():
     m_roots = Menu.objects.filter(parent_id=0)

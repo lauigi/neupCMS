@@ -1,14 +1,16 @@
-﻿#-*- coding:utf-8 -*-
+#-*- coding:utf-8 -*-
 from django.shortcuts import render_to_response,RequestContext,get_object_or_404
 from django.http import HttpResponseRedirect,Http404
 from django.contrib.auth.decorators import login_required,user_passes_test
 from neupCMS.forms import EditForm,VerifyForm,UploadForm
 from articles.models import Type,Article,AddonArticle
+from articles.util import format_boolean,get_new_article
 from upload.models import ImageUpload
-from neupCMS.standard_test import custom_proc
+from neupCMS.custom_proc import custom_proc
 from neupCMS.member.group_auth import in_editor_group,in_admin_group
 from neupCMS.member.login import redirect
 from neupCMS.util import sort_img
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def show_article(request,articleid,status={},verify_form=None):
     a = get_object_or_404(Article, aid=articleid)
@@ -16,9 +18,12 @@ def show_article(request,articleid,status={},verify_form=None):
         if not a.is_deleted or in_admin_group(request.user):
             a_addon = AddonArticle.objects.get(aid=articleid)
             type = Type.objects.get(typeid=a.typeid)
+            content = a_addon.content
             return render_to_response('show-article.html', {'article':a,
-                'addon_article':a_addon,
+                #'addon_article':a_addon,
+                'content':content,
                 'type':type,
+                'newest':get_new_article(),
                 'status':status,
                 'verify_form':verify_form,
                 'page_title':a.title},context_instance=RequestContext(request,processors=[custom_proc]))
@@ -70,14 +75,27 @@ def verify_article(request,articleid,status={}):
 #    return attachments_list
         
 def list_by_type(request,typeid):
+    #大量文章下的表现有待优化。。现在的肯定不成
+    page = request.GET.get('page','')
     t = get_object_or_404(Type, typeid=typeid)
-    article_list=[{'aid':item.aid,'is_deleted':item.is_deleted,'is_verified':item.is_verified,'title':item.title,'authorname':item.authorname,'senddate':item.senddate,'is_headline':item.is_headline} for item in Article.objects.filter(typeid=t.typeid)]
+    article_list=[{'aid':item.aid,'title':item.title,'senddate':item.senddate,'is_headline':item.is_headline} for item in Article.objects.filter(typeid=t.typeid).order_by('-aid')]
+    p = Paginator(article_list,20)
+    try:
+        article_list = p.page(page)
+    except PageNotAnInteger:
+        # 如果页码不是整数，返回第一页.
+        article_list = p.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        article_list = p.page(p.num_pages)
     return render_to_response('article-list-by-type.html', {'article_list':article_list,
         'type':{'typeid':t.typeid,'typename':t.typename},
+        'newest':get_new_article(),
         'page_title':t.typename},context_instance=RequestContext(request,processors=[custom_proc]))
     
 @login_required
 def edit_article(request,articleid=0):
+    page_title=u'添加新文章'
     if request.method == 'POST':
         form = EditForm(request.POST)
         if form.is_valid():
@@ -85,7 +103,6 @@ def edit_article(request,articleid=0):
     else:
         if articleid==0:
             form = EditForm()
-            page_title=u'添加新文章'
         else:
             a = get_object_or_404(Article, aid=articleid)
             if request.user.username==a.authorname or in_editor_group(request.user):
@@ -105,6 +122,9 @@ def delete_article(request,articleid):
     a = get_object_or_404(Article, aid=articleid)
     if request.user.username==a.authorname or in_editor_group(request.user):
         a.is_deleted=True
+        a.is_verified=False
+        a.is_slideshow=False
+        a.is_headline=False
         a.save()
         return redirect(request,'/member/profile/%s/'%(a.authorname))#目前还没法在重定向的页面中提示删除成功，待完善
     else:
@@ -154,11 +174,3 @@ def update_article(request,articleid=0):
             return show_article(request,articleid,{'no_perm':True})
     return show_article(request,a.aid,{'has_edited':True})
     
-def format_boolean(boolean_value):
-    if boolean_value==u'True':
-        return True
-    elif boolean_value==u'False':
-        return False
-    else:
-        return None
-        

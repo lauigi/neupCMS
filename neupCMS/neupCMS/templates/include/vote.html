@@ -1,10 +1,17 @@
-﻿<div id="vote">
-    <div class="title">{{vote.v.vtitle}}</div>
-    <div class="descr">{{vote.v.vdescr}}</div>
-    <form action="#" method="get">
-        {% for vc in vote.vcolumn %}
-        <p>{{forloop.counter}}.{{vc.vctitle}}
-        {% endfor %}
-        <input type="submit" value="投票">>
-    </form>
+<div class="span1">
+    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="#">{{vlist.v.vtitle}}</a></li></ul>
+    <div class="well">{{vlist.v.vdescr}}</div>
+    <div class="well">
+        <form action="#" method="post">
+            {% for vc in vlist.vcolumn %}
+                <h3>{{forloop.counter}}.{{vc.vctitle}}</h3>
+                {% if not is_multi %}
+                    {% for vch in vc.vcchoices %}
+                        <input type="radio" name="{{vc.vcid}}" value="{{vch.vchid}}" />{{vch.vchtitle}}</input><br /><br />
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <input type="submit" value="投票">
+        </form>
+    </div>
 </div>

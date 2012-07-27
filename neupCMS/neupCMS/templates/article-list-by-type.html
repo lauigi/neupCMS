@@ -1,14 +1,22 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% block title %}
     {{page_title}}
 {% endblock %}
 
 {% block content %}
-    <div id="article_list_by_type">
-        <h1>{{type.typename}}</h1>
+    <div class="span3">
+        <ul class="breadcrumb">
+            <li><a href="/">首页</a> <span class="divider">/</span></li>
+            <li><a href="/type/{{type.typeid}}">{{type.typename}}</a> <span class="divider">/</span></li>
+            <li class="active">文章列表</li>
+        </ul>
     </div>
-    <div class="article_list">
-        <h2>文章列表</h2>
+    <div class="span1">
+        {% include "include/newest.html" %}
+        {% include "include/hot.html" %}
+    </div>
+    <div class="span2">
+        <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type.typeid}}"><h3>{{type.typename}}</h3></a></li></ul>
         {% include "include/article-list.html" %}
     </div>
 {% endblock %}

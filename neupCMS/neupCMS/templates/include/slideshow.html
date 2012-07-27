@@ -1,16 +1,12 @@
-﻿<div id="slideshow">
-    <div id="slideshow_bg"></div>  <!--标题背景-->
-    <div id="slideshow_info"></div> <!--标题-->
-    <ul>
-        <li class="slideshow_on">1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-    </ul>
-    <div id="slideshow_list">
+<div id="myCarousel" class="carousel slide">
+    <div class="carousel-inner">
         {% for item in slideshow_list %}
-        <a href="/article/{{item.aid}}/" target="_blank"><img src="{{MEDIA_URL}}{{item.thumb_path}}" title="{{item.title}}" alt="{{item.title}}" /></a>
+        {% if forloop.first %}<div class="item active">{% else %}<div class="item">{% endif %}
+            <img src="{{MEDIA_URL}}{{item.thumb_path}}" alt="" />
+            <div class="carousel-caption"><p>{{item.title}}</p></div>
+        </div>
         {% endfor %}
     </div>
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>

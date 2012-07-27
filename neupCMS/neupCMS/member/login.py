@@ -1,9 +1,9 @@
-﻿#-*- coding:utf-8 -*-
+#-*- coding:utf-8 -*-
 from django.shortcuts import render_to_response,RequestContext
 from neupCMS.forms import LoginForm
 from django.contrib import auth
 from django.http import HttpResponseRedirect
-from neupCMS.standard_test import custom_proc
+from neupCMS.custom_proc import custom_proc
 
 def log_in(request):
     if not request.user.is_authenticated():

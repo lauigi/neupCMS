@@ -1,4 +1,4 @@
-﻿#-*- coding:utf-8 -*-
+#-*- coding:utf-8 -*-
 from ad.models import Index_AD
 
 def show_index_ad():

@@ -1,17 +1,18 @@
-﻿<div class="navbar"><div class="navbar-inner"><div class="container">
+<div class="navbar"><div class="navbar-inner"><div class="container"><ul class="nav">
     {% for m_root in menu_list %}
-        <ul class="nav">
-            {% if not m_root.1 %}<li><a href="{{m_root.0.menu_link}}">{{m_root.0.menu_name}}</a></li>
-            {% else %}
-                {% for menu in m_root %} 
-                    {% if forloop.first %}
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{menu.menu_name}}<b class="caret"></b><ul class="dropdown-menu">
-                    {% else %}
-                        <li><a href="{{menu.menu_link}}">{{menu.menu_name}}</a></li>
-                    {% endif %}
-                {% endfor %}
-                </ul></li>
-            {% endif %}
-        </ul>
-    {% endfor %}
+        {% if not m_root.1 %}
+            <li><a href="{{m_root.0.menu_link}}">{{m_root.0.menu_name}}</a></li>
+        {% else %}
+            {% for menu in m_root %} 
+                {% if forloop.first %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >{{menu.menu_name}}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                {% else %}
+                    <li><a href="{{menu.menu_link}}">{{menu.menu_name}}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul></li>
+        {% endif %}
+    {% endfor %}</ul>
 </div></div></div>

@@ -1,4 +1,4 @@
-﻿# Django settings for neupCMS project.
+# Django settings for neupCMS project.
 import os
 from neupCMS_config import neupCMS_config
 from django.core.urlresolvers import reverse_lazy
@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'config',
     'vote',
     'ad',
+    'templatetag',
 )
 
 # A sample logging configuration. The only tangible logging

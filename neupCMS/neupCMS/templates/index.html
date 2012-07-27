@@ -1,25 +1,85 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% block title %}
     {{page_title}}
 {% endblock %}
-
-{% block link %}
-<link href="{{STATIC_URL}}css/slideshow.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/slideshow.js"></script>
-{% endblock %}
-
+{% load extra_tags %}
 {% block content %}
-    <div class="span4">左侧留空</div>
-    <div class="span8">
-        <div class="row">先锋新闻</div>
-        <div class="row">
-            <div class="span4">{% include "include/slideshow.html" %}</div>
-            <div class="span4">先锋新闻</div>
+    <div class="span1 be_close">
+        <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/2">站内公告</a></li></ul>
+        <div class="span1"><ul class="nav nav-tabs nav-stacked">
+              {% for dict in type_list.1%}
+              <li><a href="/article/{{dict.aid}}">{% if dict.is_headline %}<b>{{dict.title|short:"19"}}</b>{% else %}{{dict.title|short:"19"}}{% endif %}</a></li>
+              {% endfor %}
+        </ul></div>
+        <div class="span1">
+            {% include "include/cal.html" %}
         </div>
-    
-    <div class="ad_right"><a href="{{ad.0.link}}"><img src="{{MEDIA_URL}}{{ad.0.img}}" alt="{{ad.0.title}}" /></a></div>
-    <div class="ad_right"><a href="{{ad.1.link}}"><img src="{{MEDIA_URL}}{{ad.1.img}}" alt="{{ad.1.title}}" /></a></div>
-    <div class="ad_right"><a href="{{ad.2.link}}"><img src="{{MEDIA_URL}}{{ad.2.img}}" alt="{{ad.2.title}}" /></a></div>
-    <div class="ad_right"><a href="{{ad.3.link}}"><img src="{{MEDIA_URL}}{{ad.3.img}}" alt="{{ad.3.title}}" /></a></div>
+        <div class="span1">
+            {% include "include/hot.html" %}
+        </div>
+        {% include "include/vote.html" %}
+    </div>
+    <div class="span2">
+        <div class="row">
+            <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/1">先锋新闻</a></li></ul>
+        </div>
+        <div class="row">
+            <div class="span1">{% include "include/slideshow.html" %}</div>
+            <div class="span1"><ul class="nav nav-tabs nav-stacked">
+              {% for dict in type_list.0 %}
+              <li><a href="/article/{{dict.aid}}">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title|short:"19"}}</b>{% else %}{{dict.title|short:"19"}}{% endif %}</a></li>
+              {% endfor %}
+            </ul></div>
+        </div>
+        <div class="span2">
+            <a class="thumbnail" href="{{ad.0.link}}"><img src="{{MEDIA_URL}}{{ad.0.img}}" alt="{{ad.0.title}}" /></a>
+            <a class="thumbnail" href="{{ad.1.link}}"><img src="{{MEDIA_URL}}{{ad.1.img}}" alt="{{ad.1.title}}" /></a>
+        </div>
+        <div class="row">
+            <div class="span1">
+                <div class="row">
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/5">热点追踪</a></li></ul>
+                </div>
+                <div class="row"><ul class="nav nav-tabs nav-stacked">
+                    {% for dict in type_list.3 %}
+                        <li><a href="/article/{{dict.aid}}">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title|short:"19"}}</b>{% else %}{{dict.title|short:"19"}}{% endif %}</a></li>
+                    {% endfor %}
+                </ul></div>
+            </div>
+            <div class="span1">
+                <div class="row">
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/3">学院风采</a></li></ul>
+                </div>
+                <div class="row"><ul class="nav nav-tabs nav-stacked">
+                    {% for dict in type_list.2 %}
+                        <li><a href="/article/{{dict.aid}}">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title|short:"19"}}</b>{% else %}{{dict.title|short:"19"}}{% endif %}</a></li>
+                    {% endfor %}
+                </ul></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span1">
+                <div class="row">
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/6">理论学习</a></li></ul>
+                </div>
+                <div class="row"><ul class="nav nav-tabs nav-stacked">
+                    {% for dict in type_list.4 %}
+                        <li><a href="/article/{{dict.aid}}">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title|short:"19"}}</b>{% else %}{{dict.title|short:"19"}}{% endif %}</a></li>
+                    {% endfor %}
+                </ul></div>
+            </div>
+            <div class="span1">
+                <div class="row">
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/7">东大社团</a></li></ul>
+                </div>
+                <div class="row"><ul class="nav nav-tabs nav-stacked">
+                    {% for dict in type_list.5 %}
+                        <li><a href="/article/{{dict.aid}}">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title|short:"19"}}</b>{% else %}{{dict.title|short:"19"}}{% endif %}</a></li>
+                    {% endfor %}
+                </ul></div>
+            </div>
+        </div>
+    <a class="thumbnail" href="{{ad.2.link}}"><img src="{{MEDIA_URL}}{{ad.2.img}}" alt="{{ad.2.title}}" /></a>
+    <a class="thumbnail" href="{{ad.3.link}}"><img src="{{MEDIA_URL}}{{ad.3.img}}" alt="{{ad.3.title}}" /></a>
     </div>
 {% endblock %}

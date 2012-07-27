@@ -1,4 +1,5 @@
-﻿import re
+#-*- coding:utf-8 -*-
+import re
 from articles.models import AddonArticle
 from upload.models import ImageUpload
 from PIL import Image,ImageFilter
@@ -40,7 +41,6 @@ def dropShadow( image, back_width=350,back_height=250,offset=(5,5), background=(
         shadow=(0,0,0,100), border=8, iterations=3):
     """
     把图像放在一个作了高斯模糊的背景上
- 
     image       - 要放在背景上的原始图像
     offset      - 阴影相对图像的偏移，用(x,y)表示，可以为正数或者负数
     background - 背景色

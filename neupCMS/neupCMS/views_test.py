@@ -1,4 +1,4 @@
-﻿#-*- coding:utf-8 -*-
+#-*- coding:utf-8 -*-
 from django.shortcuts import render_to_response
 from django.shortcuts import RequestContext
 from django.http import HttpResponse
@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from neupCMS.forms import LoginForm,UploadForm
 from django.contrib import auth
 from upload.views import upload_image
-from neupCMS.standard_test import custom_proc
+from neupCMS.custom_proc import custom_proc
 
 def hello(request):
     return HttpResponse("Hello world")

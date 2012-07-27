@@ -1,25 +1,26 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
-<head><meta charset="utf-8">
+<head>
+<meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{% block title %}{% endblock %}</title>
 <link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/bootstrap.js"></script>
+
+
 {% block link %}{% endblock %}
 </head>
 <body>
 <div class="container">
-    <div class="row banner"><div class="span12" id="banner">
-        <embed src="{{STATIC_URL}}img/banner1.swf" pluginspage="http://www.neupioneer.com/go/getflashplayer" type="application/x-shockwave-flash" name="obj1" width="940" height="150"></embed>
+    <div class="span3 be_close">
+        <embed src="{{STATIC_URL}}img/banner1.swf" pluginspage="http://www.neupioneer.com/go/getflashplayer" type="application/x-shockwave-flash" name="obj1" width="990" height="150"></embed>
     </div>
-    <div class="span12">
+    <div class="span3 be_close">
         {% include "include/menu-list.html" %}
     </div>
     <div class="row">
         {% block content %}{% endblock %}
     </div>
-    <div class="row"><div class="span12">
+    <div class="span3">
     {% block user_status %}
         <div class="top_status">
             {% if user.is_authenticated %}
@@ -29,13 +30,14 @@
             {% endif %}
         </div>
     {% endblock %}
-    </div></div>
+    </div>
     {% block footer %}
-    <div id="footer">
-        <hr />
-        <p class="copyleft">www.neupioneer.com  &copy; 2012  frellica>w<</p>
+    <div class="row">
+        <footer id="footer"><hr /><p class="copyleft">www.neupioneer.com  &copy; 2012  frellica>w<</p></footer>
     </div>
     {% endblock %}
 </div>
+<script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/bootstrap.js"></script>
 </body>
 </html>
