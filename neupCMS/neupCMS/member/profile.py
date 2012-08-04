@@ -20,7 +20,7 @@ def profile_page(request,username):
     article_list=[{'aid':item.aid,'is_deleted':item.is_deleted,'is_verified':item.is_verified,'is_headline':item.is_headline,'title':item.title,'authorname':item.authorname,'typename':Type.objects.get(typeid=item.typeid).typename} for item in Article.objects.filter(authorname=user.username)]
     verify_auth=in_editor_group(request.user)
     resume_auth=in_admin_group(request.user)
-    p = Paginator(article_list,20)
+    p = Paginator(article_list,10)
     try:
         article_list = p.page(page)
     except PageNotAnInteger:

@@ -16,10 +16,10 @@ def format_boolean(boolean_value):
         return None
 
 def get_hot_article():
-    return [{'aid':item.aid,'title':item.title} for item in Article.objects.all().order_by("-goodpost")[:10]]
+    return [{'aid':item.aid,'title':item.title} for item in Article.objects.filter(is_verified=True).filter(is_deleted=False).order_by("-goodpost")[:10]]
     
 def get_new_article():
-    return [{'aid':item.aid,'title':item.title} for item in Article.objects.order_by("-aid")[:10]]
+    return [{'aid':item.aid,'title':item.title} for item in Article.objects.filter(is_verified=True).filter(is_deleted=False).order_by("-aid")[:10]]
     
 def get_unverified_article():
     return [{'aid':item.aid,

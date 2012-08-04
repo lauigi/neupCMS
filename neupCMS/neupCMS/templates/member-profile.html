@@ -11,8 +11,10 @@
         </ul>
         <a class="logout_button" href="/member/logout">登出</a>
     </div>
-    <div class="article_list">
-        <h2>文章列表</h2>
-        {% include "include/manage-article-list.html" %}
-    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a>文章列表</a></li>
+        {% if verify_auth %}<li><a href="/article/verify-list">待审核列表</a></li>{% endif %}
+        {% if resume_auth %}<li><a href="/article/rabbish">文章回收站</a></li>{% endif %}
+    </ul>
+    {% include "include/manage-article-list.html" %}
 {% endblock %}
