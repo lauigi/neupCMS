@@ -1,4 +1,4 @@
-﻿from django.conf import settings
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from neupCMS.views import show_index
 from neupCMS.views_test import *

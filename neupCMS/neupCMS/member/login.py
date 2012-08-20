@@ -28,7 +28,6 @@ def log_in(request):
         return redirect(request,"/member/profile/%s/"%(request.user.username))
     
 def render_login(request,next,pwd_wrong=False):
-    #form = LoginForm(initial={'username':request.POST.get('username','')})
     if request.method == 'POST':
         form = LoginForm(request.POST)
     else:

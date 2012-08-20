@@ -2,7 +2,8 @@
 import os
 from neupCMS_config import neupCMS_config
 from django.core.urlresolvers import reverse_lazy
-DEBUG = True
+#DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -61,8 +62,11 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(os.getcwd(),'../static').replace('\\','/')
-
+if DEBUG==True:
+    STATIC_ROOT = os.path.join(os.getcwd(),'../static').replace('\\','/')
+else:
+    STATIC_ROOT = os.path.join(os.getcwd(),'static/').replace('\\','/')
+print STATIC_ROOT
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
@@ -96,6 +100,21 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+if DEBUG==True:
+    TEMPLATE_DIRS = (
+        # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+        # Always use forward slashes, even on Windows.
+        # Don't forget to use absolute paths, not relative paths.
+        os.path.join(os.getcwd(),'templates').replace('\\','/'),
+    )
+else:
+    TEMPLATE_DIRS = (
+        # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+        # Always use forward slashes, even on Windows.
+        # Don't forget to use absolute paths, not relative paths.
+        os.path.join(os.path.dirname(__file__), '../templates').replace('\\','/'),
+    )
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -113,12 +132,6 @@ ROOT_URLCONF = 'neupCMS.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'neupCMS.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-	os.path.join(os.getcwd(),'neupCMS/templates').replace('\\','/')
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

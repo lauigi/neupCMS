@@ -2,7 +2,7 @@
     <ul class="nav nav-pills nav-stacked"><li class="active"><a href="#">{{vlist.v.vtitle}}</a></li></ul>
     <div class="well">{{vlist.v.vdescr}}</div>
     <div class="well">
-        <form action="#" method="post">
+        <form action="#" method="post">{% csrf_token %}
             {% for vc in vlist.vcolumn %}
                 <h3>{{forloop.counter}}.{{vc.vctitle}}</h3>
                 {% if not is_multi %}
