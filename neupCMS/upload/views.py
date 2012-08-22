@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from upload.models import ImageUpload,FileUpload
 from articles.models import Article,AddonArticle
 from time import time
-from random import random,randint
+from random import random
 from neupCMS.util import make_thumb
 
 @login_required
@@ -24,7 +24,7 @@ def upload_image(request):
         if len(ori_name) > max_name_length:
             state=u"图片文件名过长"
         if state == "SUCCESS":
-            random_name=str(time())[:-3] + str(randint(10000,99999))[-5:]
+            random_name=str(time())[:10] + str(random())[-5:]
             img.name = random_name + '.'+img.name.split('.')[-1].lower()
             thumb_img=make_thumb(img)
             thumb_img.name=random_name+'.png'
@@ -33,7 +33,9 @@ def upload_image(request):
                 img_uploaded.save()
                 url=img_uploaded.image_path
             except:
-                pass
+                state=u"服务器故障"
+            finally:
+                thumb_img.close()
         json="{'url':'%s','title':'%s','original':'%s','state':'%s'}" % (url,title,ori_name,state)
     else:
         raise Http404()

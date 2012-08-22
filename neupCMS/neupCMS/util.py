@@ -4,7 +4,7 @@ from articles.models import AddonArticle
 from upload.models import ImageUpload
 from PIL import Image,ImageFilter
 from django.core.files import File
-from tempfile import TemporaryFile
+from tempfile import NamedTemporaryFile
 
 
 def img_from_content(aid):
@@ -32,7 +32,7 @@ def make_thumb(img,width = 350,height=250):
     delta=pixbuf.size[0]/pixbuf.size[1]
     pixbuf.thumbnail((width, height), Image.ANTIALIAS)
     pixbuf=dropShadow(pixbuf)
-    temp_img_file=TemporaryFile()
+    temp_img_file=NamedTemporaryFile()
     pixbuf.save(temp_img_file,"png")
     thumb_img=File(temp_img_file)
     return thumb_img
