@@ -9,7 +9,7 @@ from tempfile import TemporaryFile
 
 def img_from_content(aid):
     a_addon=AddonArticle.objects.get(aid=aid)
-    pattern = re.compile(ur'src="(?P<pre>/media/)(?P<tail>images/[\d]{4}/[\d]{2}/[\d]{2}/[\d]{15}\.)([\w]{3,4})')
+    pattern = re.compile(ur'src="(?P<pre>/media/)(?P<tail>images/[\d]{4}/[\d]{2}/[\d]{2}/[\d]{14,15}\.)([\w]{3,4})')
     s=pattern.pattern
     t=a_addon.content
     img_list=[]
