@@ -3,9 +3,11 @@
 *.gif
 *~
 *.swp
+*.swf
 #*#
-neupCMS/neupCMS/apache/*
-neupCMS/neupCMS/apache
+neupCMS/apache/*
+neupCMS/apache
 *.pyc
-neupCMS/neupCMS_config.py
-neupCMS/media
+neupCMS_config.py
+media
+*.less
