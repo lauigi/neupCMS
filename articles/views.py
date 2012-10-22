@@ -2,15 +2,17 @@
 from django.shortcuts import render_to_response,RequestContext,get_object_or_404
 from django.http import HttpResponseRedirect,Http404
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from neupCMS.forms import EditForm,VerifyForm,UploadForm
 from articles.models import Type,Article,AddonArticle
 from articles.util import format_boolean,get_new_article
 from upload.models import ImageUpload
 from neupCMS.custom_proc import custom_proc
-from neupCMS.member.group_auth import in_editor_group,in_admin_group
+from member.group_auth import in_editor_group,in_admin_group
 from neupCMS.member.login import redirect
 from neupCMS.util import sort_img
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from neupCMS.settings import URL_PRE
 
 def show_article(request,articleid,status={},verify_form=None):
     a = get_object_or_404(Article, aid=articleid)
@@ -126,7 +128,7 @@ def delete_article(request,articleid):
         a.is_slideshow=False
         a.is_headline=False
         a.save()
-        return redirect(request,'/member/profile/%s/'%(a.authorname))#目前还没法在重定向的页面中提示删除成功，待完善
+        return redirect(request, URL_PRE+'/member/profile/%s/'%(a.authorname))#目前还没法在重定向的页面中提示删除成功，待完善
     else:
         return show_article(request,articleid,{'no_perm':True})
         
@@ -137,7 +139,7 @@ def resume_article(request,articleid):
     if in_admin_group(request.user):
         a.is_deleted=False
         a.save()
-        return redirect(request,'/member/profile/%s/'%(a.authorname))
+        return redirect(request, URL_PRE+'/member/profile/%s/'%(a.authorname))
     else:
         raise Http404()
 

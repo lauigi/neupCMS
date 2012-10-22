@@ -4,6 +4,7 @@ from neupCMS.forms import LoginForm
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from neupCMS.custom_proc import custom_proc
+from neupCMS.settings import URL_PRE
 
 def log_in(request):
     if not request.user.is_authenticated():
@@ -20,12 +21,12 @@ def log_in(request):
                 user = auth.authenticate(username=username, password=password)
                 if user is not None and user.is_active:
                     auth.login(request, user)
-                    return redirect(request,"/member/profile/%s/"%(user.username))
+                    return redirect(request, URL_PRE+"/member/profile/%s/"%(user.username))
                 else:
                     return render_login(request,next,pwd_wrong=True)
         return render_login(request,next)
     else:
-        return redirect(request,"/member/profile/%s/"%(request.user.username))
+        return redirect(request, URL_PRE+"/member/profile/%s/"%(request.user.username))
     
 def render_login(request,next,pwd_wrong=False):
     if request.method == 'POST':
@@ -39,7 +40,7 @@ def render_login(request,next,pwd_wrong=False):
 
 def log_out(request):
     auth.logout(request)
-    return redirect(request,'/member/login/')
+    return redirect(request, URL_PRE+'/member/login/')
     
 def redirect(request,target_url=''):
     if request.GET.get('next'):

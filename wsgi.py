@@ -1,4 +1,4 @@
-﻿"""
+"""
 WSGI config for neupCMS project.
 
 This module contains the WSGI application used by Django's development server

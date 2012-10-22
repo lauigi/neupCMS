@@ -5,11 +5,11 @@ from upload.models import ImageUpload
 from PIL import Image,ImageFilter
 from django.core.files import File
 from tempfile import NamedTemporaryFile
-
+from neupCMS.settings import URL_PRE
 
 def img_from_content(aid):
     a_addon=AddonArticle.objects.get(aid=aid)
-    pattern = re.compile(ur'src="(?P<pre>/media/)(?P<tail>images/[\d]{4}/[\d]{2}/[\d]{2}/[\d]{14,15}\.)([\w]{3,4})')
+    pattern = re.compile(ur'src="%s(?P<pre>/media/)(?P<tail>images/[\d]{4}/[\d]{2}/[\d]{2}/[\d]{14,15}\.)([\w]{3,4})'%(URL_PRE))
     s=pattern.pattern
     t=a_addon.content
     img_list=[]

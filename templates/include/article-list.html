@@ -1,6 +1,6 @@
 <ul class="nav nav-pills nav-stacked">
 {% for dict in article_list %}
-    <li><a href="/article/{{dict.aid}}/">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title}}</b>{% else %}{{dict.title}}{% endif %}</a></li>
+    <li><a href="{{url_pre}}/article/{{dict.aid}}/">{{dict.senddate|date:"m-d"}}-{% if dict.is_headline %}<b>{{dict.title}}</b>{% else %}{{dict.title}}{% endif %}</a></li>
 {% empty %}
     <li>本类别下没有新闻</li>
 {% endfor %}

@@ -5,10 +5,10 @@
 {% load extra_tags %}
 {% block content %}
     <div class="span1 be_close">
-        <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type_dict.2.t.typeid}}">{{type_dict.2.t.typename}}</a></li></ul>
+        <ul class="nav nav-pills nav-stacked"><li class="active"><a href="{{url_pre}}/type/{{type_dict.2.t.typeid}}">{{type_dict.2.t.typename}}</a></li></ul>
         <div class="span1"><ul class="nav nav-tabs nav-stacked">
               {% for a in type_dict.2.a_list%}
-              <li><a href="/article/{{a.aid}}">{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
+              <li><a href="{{url_pre}}/article/{{a.aid}}">{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
               {% endfor %}
         </ul></div>
         <div class="span1">
@@ -21,13 +21,13 @@
     </div>
     <div class="span2">
         <div class="row">
-            <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type_dict.1.t.typeid}}">{{type_dict.1.t.typename}}</a></li></ul>
+            <ul class="nav nav-pills nav-stacked"><li class="active"><a href="{{url_pre}}/type/{{type_dict.1.t.typeid}}">{{type_dict.1.t.typename}}</a></li></ul>
         </div>
         <div class="row">
             <div class="span1">{% include "include/slideshow.html" %}</div>
             <div class="span1"><ul class="nav nav-tabs nav-stacked">
               {% for a in type_dict.1.a_list %}
-              <li><a href="/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
+              <li><a href="{{url_pre}}/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
               {% endfor %}
             </ul></div>
         </div>
@@ -38,21 +38,21 @@
         <div class="row">
             <div class="span1">
                 <div class="row">
-                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type_dict.5.t.typeid}}">{{type_dict.5.t.typename}}</a></li></ul>
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="{{url_pre}}/type/{{type_dict.5.t.typeid}}">{{type_dict.5.t.typename}}</a></li></ul>
                 </div>
                 <div class="row"><ul class="nav nav-tabs nav-stacked">
                     {% for a in type_dict.5.a_list %}
-                        <li><a href="/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
+                        <li><a href="{{url_pre}}/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
                     {% endfor %}
                 </ul></div>
             </div>
             <div class="span1">
                 <div class="row">
-                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type_dict.3.t.typeid}}">{{type_dict.3.t.typename}}</a></li></ul>
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="{{url_pre}}/type/{{type_dict.3.t.typeid}}">{{type_dict.3.t.typename}}</a></li></ul>
                 </div>
                 <div class="row"><ul class="nav nav-tabs nav-stacked">
                     {% for a in type_dict.3.a_list %}
-                        <li><a href="/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
+                        <li><a href="{{url_pre}}/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
                     {% endfor %}
                 </ul></div>
             </div>
@@ -60,21 +60,21 @@
         <div class="row">
             <div class="span1">
                 <div class="row">
-                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type_dict.6.t.typeid}}">{{type_dict.6.t.typename}}</a></li></ul>
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="{{url_pre}}/type/{{type_dict.6.t.typeid}}">{{type_dict.6.t.typename}}</a></li></ul>
                 </div>
                 <div class="row"><ul class="nav nav-tabs nav-stacked">
                     {% for a in type_dict.6.a_list %}
-                        <li><a href="/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
+                        <li><a href="{{url_pre}}/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
                     {% endfor %}
                 </ul></div>
             </div>
             <div class="span1">
                 <div class="row">
-                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type_dict.7.t.typeid}}">{{type_dict.7.t.typename}}</a></li></ul>
+                    <ul class="nav nav-pills nav-stacked"><li class="active"><a href="{{url_pre}}/type/{{type_dict.7.t.typeid}}">{{type_dict.7.t.typename}}</a></li></ul>
                 </div>
                 <div class="row"><ul class="nav nav-tabs nav-stacked">
                     {% for a in type_dict.7.a_list %}
-                        <li><a href="/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
+                        <li><a href="{{url_pre}}/article/{{a.aid}}">{{a.senddate|date:"m-d"}}-{% if a.is_headline %}<b>{{a.title|short:"19"}}</b>{% else %}{{a.title|short:"19"}}{% endif %}</a></li>
                     {% endfor %}
                 </ul></div>
             </div>

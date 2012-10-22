@@ -12,11 +12,6 @@ def show_index(request):
     type_dict={}
     m=show_menu()
     types=Type.objects.all()
-    #for t in types:
-    #    type_list.append([{'aid':item.aid,'is_deleted':item.is_deleted,\
-    #    'is_verified':item.is_verified,'title':item.title,\
-    #    'authorname':item.authorname,'senddate':item.senddate,\
-    #    'is_headline':item.is_headline} for item in Article.objects.filter(typeid=t.typeid).filter(is_verified=True).filter(is_deleted=False).order_by('-senddate')[:9]])
     for t in types:
         type_dict[t.typeid]={'t':t,'a_list':[a for a in Article.objects.filter(typeid=t.typeid).filter(is_verified=True).filter(is_deleted=False).order_by('-senddate')[:9]]}
     slideshow_article=Article.objects.filter(is_slideshow=True,is_verified=True,is_deleted=False).order_by("-senddate")[:5]

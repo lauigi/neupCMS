@@ -2,7 +2,7 @@
     <ul class="nav nav-pills nav-stacked"><li class="active"><a>最新文章</a></li></ul>
     <ul class="nav nav-tabs nav-stacked">
         {% for a in newest %}
-            <li><a href="/article/{{a.aid}}/">{{a.title}}</a></li>
+            <li><a href="{{url_pre}}/article/{{a.aid}}/">{{a.title}}</a></li>
         {% endfor %}
     </ul>
 </div>

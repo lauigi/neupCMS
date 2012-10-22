@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block user_status %}
+    <nav>
+        管理界面&nbsp;|<a href="/">返回首页</a>
+    </nav>
+    <hr />
+{% endblock %}
+
+{% block content %}
+    <h1>添加用户</h1>
+    <div class="login_error_prompt">
+    {% if form.errors %}
+        <p>输入有误，请更正</p>
+    {% endif %}
+    {% if error.name_wrong %}
+        <p>用户名或邮箱已被占用</p>
+    {% endif %}
+    </div>
+    <form action="{{url_pre}}/wheel/useradd/" method="post">{% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="添加">
+    </form>
+{% endblock %}

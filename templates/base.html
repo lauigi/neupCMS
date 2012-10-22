@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     <div class="span3 be_close">
-        <embed src="{{STATIC_URL}}img/banner1.swf" pluginspage="http://www.neupioneer.com/go/getflashplayer" type="application/x-shockwave-flash" name="obj1" width="990" height="150"></embed>
+        <h1>先锋CMS-neupCMS-beta</h1>
     </div>
     <div class="span3 be_close">
         {% include "include/menu-list.html" %}
@@ -24,9 +24,9 @@
     {% block user_status %}
         <div class="top_status">
             {% if user.is_authenticated %}
-                <p>欢迎 <a href="/member/profile/{{user.username}}/">{{ user.username }}</a>，感谢登录，<a href="/member/logout/?next={{path}}">登出</a></p>
+                <p>欢迎 <a href="{{url_pre}}/member/profile/{{user.username}}/">{{ user.username }}</a>，感谢登录，<a href="{{url_pre}}/member/logout/?next={{path}}">登出</a></p>
             {% else %}
-                <p>请<a href="/member/login/?next={{path}}">登录</a></p>
+                <p>请<a href="{{url_pre}}/member/login/?next={{path}}">登录</a></p>
             {% endif %}
         </div>
     {% endblock %}

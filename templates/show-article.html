@@ -5,8 +5,8 @@
 {% block content %}
     <div class="span3">
         <ul class="breadcrumb">
-            <li><a href="/">首页</a> <span class="divider">/</span></li>
-            <li><a href="/type/{{type.typeid}}">{{type.typename}}</a> <span class="divider">/</span></li>
+            <li><a href="{{url_pre}}/">首页</a> <span class="divider">/</span></li>
+            <li><a href="{{url_pre}}/type/{{type.typeid}}">{{type.typename}}</a> <span class="divider">/</span></li>
             <li class="active">浏览文章</li>
         </ul>
     </div>
@@ -28,10 +28,10 @@
             <div class="alert alert-success"><a class="close" data-dismiss="alert">×</a>审核成功</div>
         {% endif %}
         {% if article.is_deleted %}
-            <div class="alert alert-info"><a class="close" data-dismiss="alert">×</a>本文章已被删除，<a href="/article/{{article.aid}}/resume/">点击恢复</a></div>
+            <div class="alert alert-info"><a class="close" data-dismiss="alert">×</a>本文章已被删除，<a href="{{url_pre}}/article/{{article.aid}}/resume/">点击恢复</a></div>
         {% endif %}
         {% if status.to_verify %}
-            <form action="/article/{{article.aid}}/verify/" method="post">{% csrf_token %}
+            <form action="{{url_pre}}/article/{{article.aid}}/verify/" method="post">{% csrf_token %}
                 {{verify_form.as_p}}
                 <input type="submit" value="提交">
             </form>

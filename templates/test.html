@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="/test/i/" enctype="multipart/form-data" method="post">{% csrf_token %}
+<form action="{{url_pre}}/test/i/" enctype="multipart/form-data" method="post">{% csrf_token %}
         <ul>
             {{ form.as_ul }}
         </ul>

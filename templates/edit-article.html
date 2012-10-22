@@ -4,9 +4,9 @@
 {% endblock %}
 {% comment %}{% endcomment %}
 {% block link %}
-<script type="text/javascript" charset="utf-8" src="/media/editor/ueditor/editor_config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/media/editor/ueditor/editor_all.js"></script>
-<link rel="stylesheet" type="text/css" href="/media/editor/ueditor/themes/default/ueditor.css"/>
+<script type="text/javascript" charset="utf-8" src="{{url_pre}}/media/editor/ueditor/editor_config.js"></script>
+<script type="text/javascript" charset="utf-8" src="{{url_pre}}/media/editor/ueditor/editor_all.js"></script>
+<link rel="stylesheet" type="text/css" href="{{url_pre}}/media/editor/ueditor/themes/default/ueditor.css"/>
 {% endblock %}
 
 {% block content %}
@@ -14,17 +14,17 @@
     <div class="edit_error_prompt">
         {% if form.errors %}<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>输入有误，请更正</div>{% endif %}
         {% if result_aid %}<div class="alert alert-success">
-  <a class="close" data-dismiss="alert">×</a>提交成功，<a href="/article/{{result_aid}}">点击查看</a></div>{% endif %}
+  <a class="close" data-dismiss="alert">×</a>提交成功，<a href="{{url_pre}}/article/{{result_aid}}">点击查看</a></div>{% endif %}
     </div>
-    {% if aid %}<form action="/article/{{aid}}/edit/" method="post">
-    {% else %}<form action="/article/new/" method="post">
+    {% if aid %}<form action="{{url_pre}}/article/{{aid}}/edit/" method="post">
+    {% else %}<form action="{{url_pre}}/article/new/" method="post">
     {% endif %}{% csrf_token %}
         <ul>
             {{ form.as_ul }}
         </ul>
         <input class="btn btn-primary btn-large" type="submit" value="提交文章">
     </form>
-    {% if upload_auth %}<form {% if aid %}action="/article/{{aid}}/upload/"{% else %}action="/article/new/upload/"{% endif %} enctype="multipart/form-data" method="post">{% csrf_token %}
+    {% if upload_auth %}<form {% if aid %}action="{{url_pre}}/article/{{aid}}/upload/"{% else %}action="{{url_pre}}/article/new/upload/"{% endif %} enctype="multipart/form-data" method="post">{% csrf_token %}
         <ul>
             {{ upload_form.as_ul }}
         </ul>

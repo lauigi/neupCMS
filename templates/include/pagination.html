@@ -2,13 +2,7 @@
     {% if article_list.has_previous %}
         <li><a href="?page={{article_list.previous_page_number}}">前一页</a></li>
     {% endif %}
-    {% for p in article_list.paginator.page_range %}
-        {% ifequal p article_list.number %}
-            <li class="active"><a href="?page={{p}}">{{p}}</a></li>
-        {% else %}
-            <li><a href="?page={{p}}">{{p}}</a></li>
-        {% endifequal %}
-    {% endfor %}
+    <li class="active"><a href="?page={{article_list.number}}">{{article_list.number}}</a></li>
     {% if article_list.has_next %}
         <li><a href="?page={{article_list.next_page_number}}">后一页</a></li>
     {% endif %}

@@ -6,8 +6,8 @@
 {% block content %}
     <div class="span3">
         <ul class="breadcrumb">
-            <li><a href="/">首页</a> <span class="divider">/</span></li>
-            <li><a href="/type/{{type.typeid}}">{{type.typename}}</a> <span class="divider">/</span></li>
+            <li><a href="{{url_pre}}/">首页</a> <span class="divider">/</span></li>
+            <li><a href="{{url_pre}}/type/{{type.typeid}}">{{type.typename}}</a> <span class="divider">/</span></li>
             <li class="active">文章列表</li>
         </ul>
     </div>
@@ -16,7 +16,7 @@
         {% include "include/hot.html" %}
     </div>
     <div class="span2">
-        <ul class="nav nav-pills nav-stacked"><li class="active"><a href="/type/{{type.typeid}}"><h3>{{type.typename}}</h3></a></li></ul>
+        <ul class="nav nav-pills nav-stacked"><li class="active"><a href="{{url_pre}}/type/{{type.typeid}}"><h3>{{type.typename}}</h3></a></li></ul>
         {% include "include/article-list.html" %}
     </div>
 {% endblock %}

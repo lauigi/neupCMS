@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 from django import forms
 from django.utils.safestring import mark_safe
+from neupCMS.settings import URL_PRE
 
 class UEditor(forms.Textarea):
     def render(self, name, value, attrs=None):
@@ -15,6 +16,6 @@ class UEditor(forms.Textarea):
         return mark_safe("\n".join([html, js]))
 
     class Media:
-        base_url = "/media/editor/ueditor/"
+        base_url =  URL_PRE+"/media/editor/ueditor/"
         css = {"all": (base_url+"themes/default/ueditor.css",)}
         js = (base_url+"editor_config.js",base_url+"editor_all_min.js",)
