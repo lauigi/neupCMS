@@ -14,7 +14,7 @@ def in_editor_group(user):
 def in_admin_group(user):
     if user:
         try:
-            if user.is_admin:
+            if user.is_superuser:
                 return True
         except:
             return False

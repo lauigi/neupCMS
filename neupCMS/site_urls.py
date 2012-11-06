@@ -2,8 +2,6 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from neupCMS.views import show_index
 from neupCMS.views_test import *
-from django.contrib.auth.views import login, logout
-from member import login, profile
 from django.http import HttpResponseRedirect
 from articles.views import *
 from upload.views import *
@@ -25,16 +23,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^member/', include('member.urls')),
     url(r'^wheel/', include('wheel.urls')),
+    url(r'^article/', include('articles.urls')),
     url(r'^type/(?P<typeid>\d+)/$', list_by_type),
-    url(r'^article/(?P<articleid>\d+)/$', show_article),
-    url(r'^article/(?P<articleid>\d+)/edit/$', edit_article),
-    url(r'^article/(?P<articleid>\d+)/verify/$', verify_article),
-    url(r'^article/(?P<articleid>\d+)/resume/$', resume_article),
-    url(r'^article/(?P<articleid>\d+)/delete/$', delete_article),
     url(r'^article/(?P<articleid>\d+)/upload/$', upload_file),
-    url(r'^article/new/$', edit_article),
     url(r'^article/new/upload/$', upload_file),
-    url(r'^column/(?P<typeid>\d+)/$', login.log_out),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
     url(r'^upload/images/$', upload_image),
     url(r'^upload/files/$', upload_file),

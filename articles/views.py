@@ -4,25 +4,30 @@ from django.http import HttpResponseRedirect,Http404
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from neupCMS.forms import EditForm,VerifyForm,UploadForm
+from articles.forms import EditForm,VerifyForm
 from articles.models import Type,Article,AddonArticle
 from articles.util import format_boolean,get_new_article
+from member.models import Member
 from upload.models import ImageUpload
 from neupCMS.custom_proc import custom_proc
 from member.group_auth import in_editor_group,in_admin_group
-from neupCMS.member.login import redirect
-from neupCMS.util import sort_img
+from neupCMS.util import sort_img, redirect
 from neupCMS.settings import URL_PRE
 
-def show_article(request,articleid,status={},verify_form=None):
+def show_article(request, articleid, status={}, verify_form=None):
     a = get_object_or_404(Article, aid=articleid)
     if a.is_verified or in_editor_group(request.user) or request.user.username==a.authorname:
         if not a.is_deleted or in_admin_group(request.user):
             a_addon = AddonArticle.objects.get(aid=articleid)
             type = Type.objects.get(typeid=a.typeid)
             content = a_addon.content
+            try:
+                author = Member.objects.get(username=a.authorname)
+                nickname = author.nickname
+            except:
+                nickname = a.authorname
             return render_to_response('show-article.html', {'article':a,
-                #'addon_article':a_addon,
+                'nickname':nickname,
                 'content':content,
                 'type':type,
                 'newest':get_new_article(),
@@ -166,6 +171,7 @@ def update_article(request,articleid=0):
         if request.user.username==a.authorname or in_editor_group(request.user):
             a.title = title
             a.typeid = typeid
+            #a.is_verified = None
             a_addon = AddonArticle.objects.get(aid=articleid)
             a_addon.content = u_text
             c=a_addon.content

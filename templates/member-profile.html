@@ -5,16 +5,31 @@
 
 {% block content %}
     <div id="member_profile">
-        <h1>用户资料页</h1><a href="{{url_pre}}/article/new/">发表新文章</a>
+        <h1>{{profile_dict.username}}的主页</h1>
+        <a href="{{url_pre}}/article/new/">发表新文章</a>
+        <a href="/member/profile/edit/">修改资料</a>
+        <a href="/member/passwd/">修改密码</a>
+        {% if verify_auth %}<a href="/wheel/list/">管理界面</a>{% endif %}
+        {% if resume_auth %}<a href="/wheel/useradd/">添加新用户</a>{% endif %}
         <ul class="profile_list">
         {% for value in profile_dict.values %}<li>{{value}}</li>{% endfor %}
         </ul>
         <a class="logout_button" href="{{url_pre}}/member/logout">登出</a>
     </div>
     <ul class="nav nav-tabs">
-        <li class="active"><a>文章列表</a></li>
-        {% if verify_auth %}<li><a href="{{url_pre}}/article/verify-list">待审核列表</a></li>{% endif %}
-        {% if resume_auth %}<li><a href="{{url_pre}}/article/rabbish">文章回收站</a></li>{% endif %}
+        <li class="active"><a href="#home" data-toggle="tab">文章列表</a></li>
+        {#<li><a href="#verify-list" data-toggle="tab">待审核列表</a></li>#}
+        {#% if resume_auth %}<li><a href="#rabbish" data-toggle="tab">文章回收站</a></li>{% endif %#}
     </ul>
-    {% include "include/manage-article-list.html" %}
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+            {% include "include/manage-article-list.html" %}
+        </div>
+        <!--<div class="tab-pane fade" id="verify-list">
+            {#% include "include/verify-list.html" %#}
+        </div>
+        <div class="tab-pane fade" id="rabbish">
+            {#% include "include/rabbish-list.html" %#}
+        </div>-->
+    </div>
 {% endblock %}

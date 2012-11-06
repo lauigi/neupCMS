@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block content %}
+    <h1>文章管理</h1><a href="{{url_pre}}/article/new/">发表新文章</a>
+    <ul class="nav nav-tabs">
+        <li{% if method.all %} class="active"{% endif %}>
+            {% if list_all %}<a href="/wheel/list/">所有文章
+            {% else %}
+                <a href="/wheel/list/{{user.id}}/">{{user.nickname}}的文章
+            {% endif %}</a>
+        </li>
+        <li{% if method.verify %} class="active"{% endif %}>
+            {% if list_all %}<a href="/wheel/list/verify/">待审核列表
+            {% else %}
+                <a href="/wheel/list/verify/{{user.id}}/">{{user.nickname}}的等待审核的文章
+            {% endif %}</a>
+        </li>
+        <li{% if method.reject %} class="active"{% endif %}>
+            {% if list_all %}<a href="/wheel/list/reject/">未通过审核的文章
+            {% else %}
+                <a href="/wheel/list/reject/{{user.id}}/">{{user.nickname}}的未通过审核的文章
+            {% endif %}</a>
+        </li>
+        {% if resume_auth %}
+            <li{% if method.deleted %} class="active"{% endif %}>
+                {% if list_all %}<a href="/wheel/list/deleted/">文章回收站
+                {% else %}
+                    <a href="/wheel/list/deleted/{{user.id}}/">{{user.nickname}}的已被删除的文章
+                {% endif %}</a>
+            </li>
+        {% endif %}
+    </ul>
+    {% include "include/manage-article-list.html" %}
+{% endblock %}

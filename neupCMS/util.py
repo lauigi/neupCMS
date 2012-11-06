@@ -1,11 +1,48 @@
 #-*- coding:utf-8 -*-
 import re
+from PIL import Image,ImageFilter
+from tempfile import NamedTemporaryFile
+
+from django.core.files import File
+from django.shortcuts import render_to_response,RequestContext
+from django.http import HttpResponseRedirect,HttpResponse
+from neupCMS.custom_proc import custom_proc
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from neupCMS.settings import URL_PRE
 from articles.models import AddonArticle
 from upload.models import ImageUpload
-from PIL import Image,ImageFilter
-from django.core.files import File
-from tempfile import NamedTemporaryFile
-from neupCMS.settings import URL_PRE
+
+
+def pag(item_list,page,volume=10):
+    p = Paginator(item_list,volume)
+    try:
+        item_list = p.page(page)
+    except PageNotAnInteger:
+        item_list = p.page(1)
+    except EmptyPage:
+        item_list = p.page(p.num_pages)
+    return item_list
+
+def redirect(request,target_url=''):
+    if request.GET.get('next'):
+        return HttpResponseRedirect(request.GET.get('next'))
+    else:
+        return HttpResponseRedirect(target_url)
+        
+def render_form_page(request,next,template_name,Form,form_initial={},error={}):
+    if request.method == 'POST':
+        form = Form(request.POST)
+    else:
+        form = Form(initial=form_initial)
+    return render_to_response(template_name, {'form': form,
+        'error':error,
+        'next':next},context_instance=RequestContext(request,processors=[custom_proc]))
+        
+def render_blank_page(request,content=''):
+    return render_to_response('blank.html',
+        {'page_content': content},
+        context_instance=RequestContext(request,processors=[custom_proc]))
 
 def img_from_content(aid):
     a_addon=AddonArticle.objects.get(aid=aid)

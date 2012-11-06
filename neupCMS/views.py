@@ -3,7 +3,6 @@ from django.shortcuts import render_to_response,RequestContext,get_object_or_404
 from django.http import Http404
 from articles.models import Type,Article,AddonArticle
 from neupCMS.custom_proc import custom_proc
-from neupCMS.member.login import redirect
 from ad.util import show_index_ad
 from config.util import show_menu
 from vote.util import show_simple_vote

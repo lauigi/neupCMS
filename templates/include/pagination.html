@@ -1,9 +1,11 @@
 <div class="pagination"><ul>
+    <li{% if not article_list.has_previous %} class="active"{% endif %}><a href="?page=1">首页</a></li>
     {% if article_list.has_previous %}
-        <li><a href="?page={{article_list.previous_page_number}}">前一页</a></li>
+        <li><a href="?page={{article_list.previous_page_number}}">{{article_list.previous_page_number}}</a></li>
     {% endif %}
     <li class="active"><a href="?page={{article_list.number}}">{{article_list.number}}</a></li>
     {% if article_list.has_next %}
-        <li><a href="?page={{article_list.next_page_number}}">后一页</a></li>
+        <li><a href="?page={{article_list.next_page_number}}">{{article_list.next_page_number}}</a></li>
     {% endif %}
+    <li{% if not article_list.has_next %} class="active"{% endif %}><a href="?page={{article_list.paginator.num_pages}}">末页</a></li>
 </div>

@@ -6,14 +6,13 @@ from django.shortcuts import render_to_response, RequestContext, get_object_or_4
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import list_detail
 
 from neupCMS.custom_proc import custom_proc
 from neupCMS.settings import URL_PRE
-from member.forms import LoginForm, PasswdForm
+from member.forms import LoginForm, PasswdForm,EditProfileForm
 from member.models import Member, MemberAddon
-from member.util import render_form_page, redirect, render_blank_page
+from neupCMS.util import render_form_page, redirect, render_blank_page, pag
 from member.group_auth import in_editor_group, in_admin_group
 
 from articles.models import Type,Article,AddonArticle
@@ -56,7 +55,7 @@ def edit_profile(request):
         form = EditProfileForm(request.POST)
         if form.is_valid():
             email,nickname = request.POST.get('email'),request.POST.get('nickname')
-            user = Member.objects.get(id=request.user.id)
+            user = request.user
             user.email,user.nickname = email,nickname
             user.save()
             error={'edit_success':True}
@@ -69,7 +68,7 @@ def passwd(request):
     if request.method == 'POST':
         form = PasswdForm(request.POST)
         if form.is_valid():
-            user = Member.objects.get(id=request.user.id)
+            user = request.user
             if user.check_password(request.POST.get('ori_password')):
                 passwd = request.POST.get('password')
                 user.set_password(passwd)
@@ -80,27 +79,34 @@ def passwd(request):
     return render_form_page(request,'','passwd.html',PasswdForm,{},error)
 
 @login_required
-def profile_page(request,username):
-    user=get_object_or_404(Member,username=username)
+def profile_page(request, username='', ):
+    if not username or username == request.user.username or username==request.user.id:
+        user = request.user
+        is_self = True
+    else:
+        try:
+            user = Member.objects.get(id=username)
+        except:
+            user = get_object_or_404(Member,username=username)
     page = request.GET.get('page','')
     profile_dict={
-        'username':username,
+        'id':user.id,
+        'username':user.username,
+        'nickname':user.nickname,
         'email':user.email,
     }
-    article_list=[{'aid':item.aid,'is_deleted':item.is_deleted,'is_verified':item.is_verified,'is_headline':item.is_headline,'title':item.title,'authorname':item.authorname,'typename':Type.objects.get(typeid=item.typeid).typename} for item in Article.objects.filter(authorname=user.username)]
     verify_auth=in_editor_group(request.user)
     resume_auth=in_admin_group(request.user)
-    p = Paginator(article_list,10)
-    try:
-        article_list = p.page(page)
-    except PageNotAnInteger:
-        # 如果页码不是整数，返回第一页.
-        article_list = p.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        article_list = p.page(p.num_pages)
+    article_list = [{'aid':a.aid, 'is_deleted':a.is_deleted,
+        'is_verified':a.is_verified, 'is_headline':a.is_headline,
+        'title':a.title, 'authorname':a.authorname,
+        'typename':Type.objects.get(typeid=a.typeid).typename} 
+        for a in Article.objects.filter(authorname=user.username) 
+        if (not a.is_deleted or resume_auth) and 
+        (a.is_verified or verify_auth or a.authorname==request.user.username)]
+    article_list = pag(article_list,page,20)
     return render_to_response('member-profile.html',{'profile_dict':profile_dict,
         'article_list':article_list,
         'verify_auth':verify_auth,
         'resume_auth':resume_auth,
-        'page_title':username},context_instance=RequestContext(request,processors=[custom_proc]))
+        'page_title':user.username},context_instance=RequestContext(request,processors=[custom_proc]))

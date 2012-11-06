@@ -16,3 +16,6 @@ class PasswdForm(forms.Form):
             raise forms.ValidationError("两次输入不一致！")
         return password_check
         
+class EditProfileForm(forms.Form):
+    nickname = forms.CharField(label=u'昵称(主要显示名称)',error_messages={'required': u'昵称不能为空'})
+    email = forms.EmailField(label=u'电子邮箱',error_messages={'required': u'必须要输入电子邮箱哦，否则忘记密码可就无法找回了'})
